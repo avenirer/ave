@@ -1,24 +1,27 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends MX_Controller {
+class Welcome extends CI_Controller {
 
-
-    // here we define the groups for which the controller has visibility
-    // if we define $forgroups as array('all') that means that the controller is visible by all the groups
-    // the groups that are available are: 'all', 'admin','members'.
-    //protected $forgroups = array('all');
-
-
-    public function __construct() {
-        parent::__construct();
-    }
-
-    public function index()
-    {
-      //print_r($this->usergroups);
-      $this->load->view('welcome_view');
-    }
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/welcome
+	 *	- or -  
+	 * 		http://example.com/index.php/welcome/index
+	 *	- or -
+	 * Since this controller is set as the default controller in 
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/welcome/<method_name>
+	 * @see http://codeigniter.com/user_guide/general/urls.html
+	 */
+	public function index()
+	{
+		$this->load->view('welcome_view');
+	}
 }
 
 /* End of file welcome.php */
-/* Location: ./application/controllers/Welcome.php */
+/* Location: ./application/controllers/welcome.php */
