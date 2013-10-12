@@ -34,6 +34,39 @@ class Auth extends MX_Controller {
         }
         
     }
+    public function in_groups(array $groups_arr)
+    {
+        //print_r($groups_arr);
+        //print_r($this->udata['groups']);
+        if(empty($groups_arr))
+        {
+            return TRUE;
+        }
+        else
+        {
+            if(!empty($this->udata['groups']))
+            {
+                $allowedin = array();
+                foreach($this->udata['groups'] as $group)
+                {
+                    $allowedin[] = $group['name'];
+                }
+                if(sizeof(array_intersect($allowedin, $groups_arr))>=1)
+                {
+                    return TRUE;
+                }
+                else
+                {
+                    redirect(site_url(),'refresh');
+                }
+            }
+            else
+            {
+                return FALSE;
+            }
+            
+        }
+    }
     public function login()
     {
         if($this->session->userdata('logged_in')=='1')
