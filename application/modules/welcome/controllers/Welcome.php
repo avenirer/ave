@@ -1,6 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends MX_Controller {
+    
+    public function __construct() {
+        parent::__construct();
+        $this->load->module('auth');
+        $this->auth->index();
+    }
 
 	/**
 	 * Index Page for this controller.
@@ -21,6 +27,10 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_view');
 	}
+    public function test()
+    {
+        $this->load->view('welcome_view');
+    }
 }
 
 /* End of file welcome.php */
