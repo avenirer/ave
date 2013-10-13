@@ -12,9 +12,6 @@ class Welcome extends MX_Controller {
 	{
         $forgroups = array();
         $this->auth->in_groups($forgroups);
-        
-        
-        
 		$this->load->view('welcome_view');
 	}
     public function test()

@@ -22,6 +22,7 @@ class Auth extends MX_Controller {
         if($this->session->userdata('logged_in')=='1')
         {
             return TRUE;
+            redirect(site_url(),'refresh');
             //echo '<pre>';
             //print_r($this->udata);
             //echo '</pre>';
@@ -95,6 +96,7 @@ class Auth extends MX_Controller {
                     'groups' => $user->groups
                 );
                 $this->session->set_userdata($userdata);
+                $this->auth_model->update(array('last_login'=>date('Y-m-d H:i:s')),array('idusers'=>$user->idusers));
                 redirect(site_url(),'refresh');
                 //echo $this->currenturl;
             }
@@ -119,5 +121,18 @@ class Auth extends MX_Controller {
         $this->session->unset_userdata($userdata);
         $this->session->sess_destroy();
         redirect('auth/login','refresh');
+    }
+    public function get_users()
+    {
+        if($this->in_groups(array('admin')))
+        {
+            $users = $this->auth_model->get_users();
+            $data['users'] = $users;
+            $this->load->view('users_view',$data);
+        }
+        else
+        {
+            redirect(site_url(),'refresh');
+        }
     }
 }

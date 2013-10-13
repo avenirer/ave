@@ -29,15 +29,14 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <!--<li class="dropdown">
-        <?php echo anchor('#','Administer users <b class="caret"></b>','class="dropdown-toggle" data-toggle="dropdown"');?>
-        <ul class="dropdown-menu">
-          <li><?php echo anchor('users','List users');?></li>
-          <li><?php echo anchor('users/groups',$this->lang->line('menu_list_groups'));?></li>
-        </ul>
-      </li>
-      <li><?php echo anchor('auth/logout','<span class="glyphicon glyphicon-log-out"></span> Logout');?></li>-->
-
+        <li class="dropdown">
+            <?php echo anchor('#','Administer users <b class="caret"></b>','class="dropdown-toggle" data-toggle="dropdown"');?>
+            <ul class="dropdown-menu">
+                <li><?php echo anchor('auth/get_users','View/Edit users');?></li>
+                <li><?php echo anchor('auth/get_groups','View/Edit groups');?></li>
+            </ul>
+        </li>
+        <li><?php echo anchor('auth/logout','<span class="glyphicon glyphicon-log-out"></span> Logout');?></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>

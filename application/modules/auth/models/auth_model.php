@@ -25,4 +25,23 @@ class Auth_model extends MY_Model
           return FALSE;
       }
   }
+  public function get_users()
+  {
+      $this->db->join('user_details','users.idusers=user_details.idusers','left');
+      $this->db->order_by('user_details.first_name');
+      $this->db->select('users.idusers,users.email,users.status,user_details.first_name,users.last_login,user_details.last_name');
+      $query = $this->db->get($this->table);
+      if($query->num_rows()>0)
+      {
+          foreach($query->result() as $row)
+          {
+              $data[] = $row;
+          }
+          return $data;
+      }
+      else
+      {
+          return FALSE;
+      }
+  }
 }
