@@ -4,14 +4,14 @@ class Welcome extends MX_Controller {
     
     public function __construct() {
         parent::__construct();
-        $this->load->module('auth');
-        $this->auth->index();
+        $this->load->module('users');
+        $this->users->index();
     }
 
 	public function index()
 	{
         $forgroups = array();
-        $this->auth->in_groups($forgroups);
+        $this->users->in_groups($forgroups);
 		$this->load->view('welcome_view');
 	}
     public function test()

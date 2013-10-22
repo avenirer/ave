@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends MX_Controller {
+class Users extends MX_Controller {
     protected $udata = array();
     //private $currenturl = '';
     public function __construct() {
@@ -13,7 +13,7 @@ class Auth extends MX_Controller {
             $this->udata['groups'] = $this->session->userdata('groups');
             //$this->udata['logged'] = $this->session->userdata('logged_in');            
         }
-        $this->load->model('auth_model');
+        $this->load->model('users_model');
     }
 
     public function index()
@@ -21,6 +21,7 @@ class Auth extends MX_Controller {
         //$this->currenturl = prep_url($from);
         if($this->session->userdata('logged_in')=='1')
         {
+        	$this->users_model->update(array('last_action'=>date('Y-m-d H:i:s')),array('idusers'=>$this->udata['id']));
             return TRUE;
             redirect(site_url(),'refresh');
             //echo '<pre>';
@@ -31,7 +32,7 @@ class Auth extends MX_Controller {
         }
         else
         {
-            redirect('auth/login');
+            redirect('users/login');
         }
         
     }
@@ -85,10 +86,10 @@ class Auth extends MX_Controller {
         {
             $email = $this->input->post('email');
             $password = md5($this->input->post('password'));
-            $user = $this->auth_model->get(array('email'=>$email,'password'=>$password,'status'=>'1'));
+            $user = $this->users_model->get(array('email'=>$email,'password'=>$password,'status'=>'1'));
             if($user)
             {
-                $user->groups = $this->auth_model->get_user_groups(array('users_groups.idusers'=>$user->idusers));
+                $user->groups = $this->users_model->get_user_groups(array('users_groups.idusers'=>$user->idusers));
                 $userdata = array(
                     'email' => $user->email,
                     'iduser' => $user->idusers,
@@ -96,14 +97,32 @@ class Auth extends MX_Controller {
                     'groups' => $user->groups
                 );
                 $this->session->set_userdata($userdata);
-                $this->auth_model->update(array('last_login'=>date('Y-m-d H:i:s')),array('idusers'=>$user->idusers));
+                $this->users_model->update(array('last_login'=>date('Y-m-d H:i:s'),'ip'=>$this->session->userdata('ip_address'),'login_attempts'=>'0'),array('idusers'=>$user->idusers));
                 redirect(site_url(),'refresh');
                 //echo $this->currenturl;
             }
-            else
+			elseif($this->users_model->get(array('email'=>$email,'status'=>'1')))
             {
-                echo 'Incorrect email/password. Try again';
+            	$emailpresent = $this->users_model->get(array('email'=>$email,'status'=>'1'));
+            	if(!empty($emailpresent))
+				{
+					if($emailpresent->login_attempts<5)
+					{
+						$attempts = $emailpresent->login_attempts+1;
+						$this->users_model->update(array('login_attempts'=>$attempts,'ip'=>$this->session->userdata('ip_address')),array('email'=>$email));
+                		echo 'Incorrect email/password. Try again';
+                	}
+					else
+					{
+						$this->users_model->update(array('status'=>'0','ip'=>$this->session->userdata('ip_address')),array('email'=>$email));
+                		echo 'Incorrect email/password. Stop trying';
+					}
+				}
             }
+			else
+			{
+				echo 'Contact administrator';
+			}
             
             //$password = hash('sha256', $this->input->post('password'));
             //echo $password;
@@ -117,16 +136,16 @@ class Auth extends MX_Controller {
     }
     public function logout()
     {
-        $userdata = array('email' => '', 'iduser' => '', 'logged_in'=>'1', 'groups'=>'');
+        $userdata = array('email' => '', 'iduser' => '', 'logged_in'=>'', 'groups'=>'');
         $this->session->unset_userdata($userdata);
         $this->session->sess_destroy();
-        redirect('auth/login','refresh');
+        redirect('users/login','refresh');
     }
     public function get_users()
     {
         if($this->in_groups(array('admin')))
         {
-            $users = $this->auth_model->get_users();
+            $users = $this->users_model->get_users();
             $data['users'] = $users;
             $this->load->view('users_view',$data);
         }
@@ -135,4 +154,11 @@ class Auth extends MX_Controller {
             redirect(site_url(),'refresh');
         }
     }
+	public function edit_user($iduser)
+	{
+		if($this->in_groups(array('admin')))
+		{
+			$user = $this->users_model->get(array('id'=>$iduser));
+		}
+	}
 }

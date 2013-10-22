@@ -28,7 +28,7 @@
 <div class="container">
 
 <?php
-echo form_open('auth/login_submit','class="form-signin"');
+echo form_open('users/login_submit','class="form-signin"');
 //echo '<h1>'.lang('login_heading').'</h1>';
 echo '<p>Login below</p>';
 //echo '<div id="infoMessage">'.$message.'</div>';

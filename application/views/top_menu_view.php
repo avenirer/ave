@@ -32,11 +32,11 @@
         <li class="dropdown">
             <?php echo anchor('#','Administer users <b class="caret"></b>','class="dropdown-toggle" data-toggle="dropdown"');?>
             <ul class="dropdown-menu">
-                <li><?php echo anchor('auth/get_users','View/Edit users');?></li>
-                <li><?php echo anchor('auth/get_groups','View/Edit groups');?></li>
+                <li><?php echo anchor('users/get_users','View/Edit users');?></li>
+                <li><?php echo anchor('users/get_groups','View/Edit groups');?></li>
             </ul>
         </li>
-        <li><?php echo anchor('auth/logout','<span class="glyphicon glyphicon-log-out"></span> Logout');?></li>
+        <li><?php echo anchor('users/logout','<span class="glyphicon glyphicon-log-out"></span> Logout');?></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
