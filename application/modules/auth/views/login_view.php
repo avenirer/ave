@@ -42,9 +42,11 @@ echo '<br />';
 echo '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>';
 echo form_password('password',set_value('password'),'class="form-control input-lg" placeholder="Password"');
 echo '</div>';
+/*
 echo '<div class="checkbox"><label>';
 echo form_checkbox('remember', '1', FALSE, 'id="remember"');
 echo 'Remember me</label></div>';
+ */
 echo '<br />';
 echo form_submit('submit', 'Login', 'class="btn btn-primary btn-block"');
 echo '<br /><p><a href="forgot_password">Forgot password?</a></p>';
