@@ -19,6 +19,7 @@
 				echo '<th scope="col">Email</th>';
 				echo '<th scope="col">Last login</th>';
 				echo '<th scope="col">Status</th>';
+				echo '<th scope="col">Actions</th>';
 				echo '</tr>';
 				echo '</thead>';
 				echo '<tbody>';
@@ -38,6 +39,7 @@
 							break;
 					}
 					'</td>';
+					echo '<td>'.anchor('users/edit_user/'.$user->idusers,'<span class="glyphicon glyphicon-pencil"></span>').'</td>';
 					echo '</tr>';
 				}
 				echo '</tbody>';
