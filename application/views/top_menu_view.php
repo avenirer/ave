@@ -29,6 +29,7 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+    	<li><?php echo anchor('users/profile','Profile');?></li>
         <li class="dropdown">
             <?php echo anchor('#','Administer users <b class="caret"></b>','class="dropdown-toggle" data-toggle="dropdown"');?>
             <ul class="dropdown-menu">
