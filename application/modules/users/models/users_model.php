@@ -77,11 +77,37 @@ class Users_model extends MY_Model
 		return false;
 	}
   }
+  public function add_user($cols)
+  {
+  	$this->db->limit(1);
+	$q = $this->db->insert('users',$cols);
+	if($this->db->affected_rows()==1)
+	{
+		return $this->db->insert_id();
+	}
+	else
+	{
+		return false;
+	}	
+  }
   public function update_user($newdata,$where_arr)
   {
   	$this->db->where($where_arr);
 	$this->db->limit(1);
 	$q = $this->db->update('users',$newdata);
+	if($this->db->affected_rows()==1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+  }
+  public function add_user_details($cols)
+  {
+  	$this->db->limit(1);
+	$q = $this->db->insert('user_details',$cols);
 	if($this->db->affected_rows()==1)
 	{
 		return true;

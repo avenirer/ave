@@ -166,6 +166,65 @@ class Users extends MX_Controller {
 			redirect('users/login','refresh');
 		}
     }
+	public function add_user()
+	{
+		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+        {
+        	$groups = $this->users_model->get_groups();
+			$data['groups']=$groups;
+        	$this->load->view('user_add_view',$data);
+		}
+		else
+		{
+			redirect(site_url(),'refresh');
+		}
+		
+	}
+	public function add_user_submit()
+	{
+		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+        {
+			$this->form_validation->set_rules('first_name','First name','trim|min_length[3]|required');
+			$this->form_validation->set_rules('last_name','Last name','trim|min_length[3]|required');
+			$this->form_validation->set_rules('email','Email','trim|valid_email|is_unique[users.email]|required');
+			$this->form_validation->set_rules('password','Password','trim|min_length[6]');
+			$this->form_validation->set_rules('password_check','Password check','trim|min_length[6]|matches[password]');
+			$this->form_validation->set_rules('groups[]','Groups','trim|is_natural');
+			if($this->form_validation->run($this)===FALSE)
+			{
+				$this->add_user();
+				//$this->load->view('user_edit_view');
+			}
+			else
+			{
+				$first_name = $this->input->post('first_name');
+				$last_name = $this->input->post('last_name');
+				$email = $this->input->post('email');
+				$password = md5($this->input->post('password'));
+				$groups = $this->input->post('groups');
+				$iduser = $this->users_model->add_user(array('email'=>$email,'password'=>$password));
+				if(!empty($iduser))
+				{
+					if($this->users_model->add_user_details(array('first_name'=>$first_name,'last_name'=>$last_name,'idusers'=>$iduser)) && $this->users_model->update_user_groups($groups,array('idusers'=>$iduser)))
+					{
+						redirect('users/get_users','refresh');
+					}
+					else
+					{
+						echo 'bummer. something went wrong...';
+					}
+				}
+				else
+				{
+					echo 'bummer. something went wrong...';
+				}
+			}
+		}
+		else
+		{
+			redirect(site_url(),'refresh');
+		}
+	}
 	public function edit_user($iduser)
 	{
 		if($this->session->userdata('logged_in')=='1')

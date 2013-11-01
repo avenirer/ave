@@ -33,6 +33,7 @@
         <li class="dropdown">
             <?php echo anchor('#','Administer users <b class="caret"></b>','class="dropdown-toggle" data-toggle="dropdown"');?>
             <ul class="dropdown-menu">
+            	<li><?php echo anchor('users/add_user','Add user');?></li>
                 <li><?php echo anchor('users/get_users','View/Edit users');?></li>
                 <li><?php echo anchor('users/get_groups','View/Edit groups');?></li>
             </ul>
