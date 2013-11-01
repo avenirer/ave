@@ -31,15 +31,15 @@
 					switch ($user->status)
 					{
 						case '1':
-							echo anchor('users/change_status/0','<span class="glyphicon glyphicon-thumbs-up"></span>');
+							echo anchor('users/change_status/0','<i class="fa fa-thumbs-o-up"></i>');
 							break;
 
 						case '0':
-							echo anchor('users/change_status/0','<span class="glyphicon glyphicon-thumbs-up"></span>');
+							echo anchor('users/change_status/0','<i class="fa fa-thumbs-o-down"></i>');
 							break;
 					}
 					'</td>';
-					echo '<td>'.anchor('users/edit_user/'.$user->idusers,'<span class="glyphicon glyphicon-pencil"></span>').'</td>';
+					echo '<td>'.anchor('users/edit_user/'.$user->idusers,'<i class="fa fa-pencil fa-fw"></i>').'</td>';
 					echo '</tr>';
 				}
 				echo '</tbody>';
