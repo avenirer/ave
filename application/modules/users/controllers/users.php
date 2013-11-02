@@ -360,6 +360,25 @@ class Users extends MX_Controller {
 			redirect('users/login','refresh');
 		}
 	}
+	public function change_status()
+	{
+		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+        {
+        	$iduser = $this->uri->segment(3);
+			$newstatus = $this->uri->segment(4);
+			if($iduser!=$this->udata['id'])
+			{
+				if($this->users_model->update_user(array('status'=>$newstatus),array('idusers'=>$iduser))===FALSE)
+				{
+					echo 'damn it... something went terribly wrong...';
+				}
+			}
+			redirect('users/get_users','refresh');			
+		}
+		else {
+			redirect(site_url(),'refresh');
+		}
+	}
 	public function profile()
 	{
 		if($this->session->userdata('logged_in')=='1')

@@ -31,11 +31,11 @@
 					switch ($user->status)
 					{
 						case '1':
-							echo anchor('users/change_status/0','<i class="fa fa-thumbs-o-up"></i>');
+							echo anchor('users/change_status/'.$user->idusers.'/0','<i class="fa fa-thumbs-o-up"></i>');
 							break;
 
 						case '0':
-							echo anchor('users/change_status/0','<i class="fa fa-thumbs-o-down"></i>');
+							echo anchor('users/change_status/'.$user->idusers.'/1','<i class="fa fa-thumbs-o-down"></i>');
 							break;
 					}
 					'</td>';
