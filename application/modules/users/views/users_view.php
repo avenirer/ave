@@ -39,7 +39,13 @@
 							break;
 					}
 					'</td>';
-					echo '<td>'.anchor('users/edit_user/'.$user->idusers,'<i class="fa fa-pencil fa-fw"></i>').'</td>';
+					echo '<td>';
+					echo anchor('users/edit_user/'.$user->idusers,'<i class="fa fa-pencil fa-fw"></i>');
+					if($user->status == '0')
+					{
+						echo anchor('users/delete_user/'.$user->idusers,'<i class="fa fa-trash-o"></i>');
+					}
+					echo '</td>';
 					echo '</tr>';
 				}
 				echo '</tbody>';

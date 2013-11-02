@@ -142,4 +142,46 @@ class Users_model extends MY_Model
 	}
 	return true;
   }
+  public function delete_user($where_arr)
+  {
+  	$this->db->where($where_arr);
+	$this->db->limit(1);
+	$this->db->delete('users');
+	if($this->db->affected_rows()>0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+  }
+  public function delete_user_details($where_arr)
+  {
+  	$this->db->where($where_arr);
+	$this->db->limit(1);
+	$this->db->delete('user_details');
+	if($this->db->affected_rows()>0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+  }
+  public function delete_user_groups($where_arr)
+  {
+  	$this->db->where($where_arr);
+	$this->db->limit(1);
+	$this->db->delete('users_groups');
+	if($this->db->affected_rows()>0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+  }
 }

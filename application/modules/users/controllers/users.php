@@ -371,11 +371,42 @@ class Users extends MX_Controller {
 				if($this->users_model->update_user(array('status'=>$newstatus),array('idusers'=>$iduser))===FALSE)
 				{
 					echo 'damn it... something went terribly wrong...';
+					exit;
 				}
 			}
 			redirect('users/get_users','refresh');			
 		}
 		else {
+			redirect(site_url(),'refresh');
+		}
+	}
+	public function delete_user()
+	{
+		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+        {
+        	$iduser = $this->uri->segment(3);
+			if($iduser!=$this->udata['id'])
+			{
+				if($this->users_model->delete_user(array('idusers'=>$iduser,'status'=>'0'))===FALSE)
+				{
+					echo 'damn it... something went terribly wrong on users table';
+					exit;
+				}
+				if($this->users_model->delete_user_details(array('idusers'=>$iduser))===FALSE)
+				{
+					echo 'damn it... something went wrong on user details table';
+					exit;
+				}
+				if($this->users_model->delete_user_groups(array('idusers'=>$iduser))===FALSE)
+				{
+					echo 'damn it... something went wrong on user groups table';
+					exit;
+				}
+			}
+			redirect('users/get_users','refresh');			
+		}
+		else
+		{
 			redirect(site_url(),'refresh');
 		}
 	}
