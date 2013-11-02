@@ -18,6 +18,6 @@ Bootstrap CSS Framework 3.0
 
 ave has the following modules:
 
-###auth
+###users
 
 An authentication module which is still in the works...
