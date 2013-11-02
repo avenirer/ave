@@ -27,7 +27,7 @@ class Users extends MX_Controller {
         {
         	$this->users_model->update(array('last_action'=>date('Y-m-d H:i:s')),array('idusers'=>$this->udata['id']));
             return TRUE;
-            redirect(site_url(),'refresh');
+            //redirect(site_url(),'refresh');
         }
         else
         {
