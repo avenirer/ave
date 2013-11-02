@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>
-        <?php echo isset($title) ? $title.' - AvenirERP' :  'AvenirERP'; ?>
+        <?php echo isset($title) ? $title.' - Ave' :  'Ave'; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
