@@ -9,6 +9,7 @@
 		<div class="col-lg-9">
 			<h1>Users</h1>
 			<?php
+			echo '<p>'.anchor('users/add_user','<i class="fa fa-user"></i> Add user','class="btn btn-primary btn-sm"').'</p>';
 			if(isset($users))
 			{
 				echo '<table class="table table-condensed table-bordered table-striped table-hover">';
