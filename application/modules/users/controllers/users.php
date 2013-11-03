@@ -410,6 +410,28 @@ class Users extends MX_Controller {
 			redirect(site_url(),'refresh');
 		}
 	}
+	
+	public function get_groups()
+    {
+    	if($this->session->userdata('logged_in')=='1')
+        {
+	        if($this->in_groups(array('admin')))
+	        {
+	            $groups = $this->users_model->get_groups();
+	            $data['groups'] = $groups;
+	            $this->load->view('groups_view',$data);
+	        }
+	        else
+	        {
+	            redirect(site_url(),'refresh');
+	        }
+		}
+		else
+		{
+			redirect('users/login','refresh');
+		}
+    }
+	
 	public function profile()
 	{
 		if($this->session->userdata('logged_in')=='1')
