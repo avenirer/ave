@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 01, 2013 at 10:44 PM
+-- Generation Time: Nov 03, 2013 at 11:13 PM
 -- Server version: 5.5.25a
 -- PHP Version: 5.4.4
 
@@ -41,14 +41,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('0794540f448d7f7363a7df518e08eadf', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383079109, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:19:"avenir.ro@gmail.com";s:6:"iduser";s:1:"1";s:9:"logged_in";s:1:"1";s:6:"groups";a:2:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}i:1;a:2:{s:8:"idgroups";s:1:"2";s:4:"name";s:7:"members";}}}'),
-('14ce45a2c9633cca96e9108ba5925568', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383078752, ''),
-('3aa776c2be528c27335f58a8d070b1b3', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383079805, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:19:"avenir.ro@gmail.com";s:6:"iduser";s:1:"1";s:9:"logged_in";s:1:"1";s:6:"groups";a:2:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}i:1;a:2:{s:8:"idgroups";s:1:"2";s:4:"name";s:7:"members";}}}'),
-('78563e052a681ff7dfa85387fb5a4c8d', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383080542, ''),
-('7b0015678775c10a7c348664fbbf4a5c', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383081460, 'a:4:{s:5:"email";s:19:"avenir.ro@gmail.com";s:6:"iduser";s:1:"1";s:9:"logged_in";s:1:"1";s:6:"groups";a:2:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}i:1;a:2:{s:8:"idgroups";s:1:"2";s:4:"name";s:7:"members";}}}'),
-('941936472ee08b5484c4f7fb040e7d0e', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383342135, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}'),
-('b28934ee742110060998554bae0871e2', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383082470, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:19:"avenir.ro@gmail.com";s:6:"iduser";s:1:"1";s:9:"logged_in";s:1:"1";s:6:"groups";a:2:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}i:1;a:2:{s:8:"idgroups";s:1:"2";s:4:"name";s:7:"members";}}}'),
-('f3f378e0910e3a6e91d44756baa515fe', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383080282, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:19:"avenir.ro@gmail.com";s:6:"iduser";s:1:"1";s:9:"logged_in";s:1:"1";s:6:"groups";a:2:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}i:1;a:2:{s:8:"idgroups";s:1:"2";s:4:"name";s:7:"members";}}}');
+('bbcd193ae70f8fd93578093ab126ba24', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383430894, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}'),
+('f194bbe40b32b0ee82d4ac8a6146372c', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383516549, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}');
 
 -- --------------------------------------------------------
 
@@ -104,15 +98,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`idusers`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`idusers`, `email`, `password`, `last_login`, `last_action`, `login_attempts`, `ip`, `status`) VALUES
-(1, 'avenir.ro@gmail.com', '067cca6ce67e8d78c948caa49ed9bb92', '2013-11-01 18:40:18', '2013-11-01 20:27:54', 0, '::1', 1),
-(2, 'admin@admin.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2013-11-01 20:42:22', '2013-11-01 20:42:22', 0, '::1', 1);
+(2, 'admin@admin.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2013-11-03 20:45:50', '2013-11-03 20:45:50', 0, '::1', 1),
+(4, 'avenir.ro@gmail.com', '067cca6ce67e8d78c948caa49ed9bb92', NULL, '0000-00-00 00:00:00', 0, '', 1);
 
 -- --------------------------------------------------------
 
@@ -131,9 +125,8 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
 --
 
 INSERT INTO `users_groups` (`idusers`, `idgroups`) VALUES
-(1, 1),
-(1, 2),
-(2, 1);
+(2, 1),
+(4, 1);
 
 -- --------------------------------------------------------
 
@@ -153,8 +146,8 @@ CREATE TABLE IF NOT EXISTS `user_details` (
 --
 
 INSERT INTO `user_details` (`idusers`, `first_name`, `last_name`, `last_login`) VALUES
-(1, 'Adrian', 'Voicu', '2013-10-24 22:03:41'),
-(2, 'Admin', 'Istrator', '2013-11-01 21:37:02');
+(2, 'Admin', 'Istrator', '2013-11-01 21:37:02'),
+(4, 'Adrian', 'Voicu', '2013-11-02 22:13:52');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
