@@ -152,8 +152,17 @@ class Users extends MX_Controller {
         {
 	        if($this->in_groups(array('admin')))
 	        {
+	        	$users_nogroup = $this->users_model->get_users_nogroup();
 	            $users = $this->users_model->get_users();
 	            $data['users'] = $users;
+				if(!empty($users_nogroup))
+				{
+					$data['nogroup'] = sizeof($users_nogroup);
+				}
+				else
+				{
+					$data['nogroup'] = '0';
+				}
 	            $this->load->view('users_view',$data);
 	        }
 	        else
@@ -172,8 +181,17 @@ class Users extends MX_Controller {
         {
 	        if($this->in_groups(array('admin')))
 	        {
+	        	$users_nogroup = $this->users_model->get_users_nogroup();
 	            $users = $this->users_model->get_users_nogroup();
 	            $data['users'] = $users;
+				if(!empty($users_nogroup))
+				{
+					$data['nogroup'] = sizeof($users_nogroup);
+				}
+				else
+				{
+					$data['nogroup'] = '0';
+				}
 	            $this->load->view('users_view',$data);
 	        }
 	        else
@@ -366,10 +384,7 @@ class Users extends MX_Controller {
 							$this->users_model->update_user_details($newdetailsdata,$where_arr);
 						}
 						$groups = $this->input->post('groups');
-						if(!empty($groups))
-						{
-							$this->users_model->update_user_groups($groups,$where_arr);
-						}
+						$this->users_model->update_user_groups($groups,$where_arr);
 						redirect('users/get_users','refresh');
 					}
 

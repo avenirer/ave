@@ -117,21 +117,21 @@ class Users_model extends MY_Model
 	{
 		$this->db->join('users_groups','users.idusers=users_groups.idusers','left');
 		$this->db->where('users_groups.idusers',NULL);
-      $this->db->join('user_details','users.idusers=user_details.idusers','left');
-      $this->db->order_by('user_details.first_name');
-      $this->db->select('users.idusers,users.email,users.status,users.last_login,user_details.first_name,user_details.last_name');
-      $query = $this->db->get($this->table);
-      if($query->num_rows()>0)
-      {
-          foreach($query->result() as $row)
-          {
-              $data[] = $row;
-          }
-          return $data;
+		$this->db->join('user_details','users.idusers=user_details.idusers','left');
+		$this->db->order_by('user_details.first_name');
+		$this->db->select('users.idusers,users.email,users.status,users.last_login,user_details.first_name,user_details.last_name');
+		$query = $this->db->get($this->table);
+		if($query->num_rows()>0)
+		{
+			foreach($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
       }
       else
       {
-          return FALSE;
+          return false;
       }
   }
   public function get_user($where_arr)
@@ -208,10 +208,13 @@ class Users_model extends MY_Model
   {
   	$this->db->where($where_arr);
 	$this->db->delete('users_groups');
-	foreach($groups as $group)
+	if(!empty($groups))
 	{
-		$this->db->where($where_arr);
-		$this->db->insert('users_groups',array('idusers'=>$where_arr['idusers'],'idgroups'=>$group));
+		foreach($groups as $group)
+		{
+			$this->db->where($where_arr);
+			$this->db->insert('users_groups',array('idusers'=>$where_arr['idusers'],'idgroups'=>$group));
+		}
 	}
 	return true;
   }

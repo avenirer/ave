@@ -9,7 +9,7 @@
 		<div class="col-lg-9">
 			<h1>Users</h1>
 			<?php
-			echo '<p>'.anchor('users/add_user','<i class="fa fa-user"></i> Add user','class="btn btn-primary btn-sm"').'&nbsp;'.anchor('users/get_users_nogroup','<i class="fa fa-group"></i> Users without group','class="btn btn-danger btn-sm"').'</p>';
+			echo '<p>'.anchor('users/add_user','<i class="fa fa-user"></i> Add user','class="btn btn-primary btn-sm"').'&nbsp;'.anchor('users/get_users_nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"').'</p>';
 			if(!empty($users))
 			{
 				echo '<table class="table table-condensed table-bordered table-striped table-hover">';
