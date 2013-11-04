@@ -10,7 +10,7 @@ class Users extends MX_Controller {
             $this->udata['id'] = $this->session->userdata('iduser');
             $this->udata['email'] = $this->session->userdata('email');
             $this->udata['groups'] = $this->session->userdata('groups');
-            //$this->udata['logged'] = $this->session->userdata('logged_in');            
+            //$this->udata['logged'] = $this->session->userdata('logged_in');
         }
 		else
 		{
@@ -33,7 +33,7 @@ class Users extends MX_Controller {
         {
             redirect('users/login');
         }
-        
+
     }
     public function in_groups(array $groups_arr)
     {
@@ -72,7 +72,7 @@ class Users extends MX_Controller {
 			{
 				redirect('users/login');
 			}
-            
+
         }
     }
     public function login()
@@ -83,7 +83,7 @@ class Users extends MX_Controller {
     {
         $this->form_validation->set_rules('email','Email','trim|valid_email|required');
         $this->form_validation->set_rules('password','Password','trim|required');
-        
+
         if($this->form_validation->run())
         {
             $email = $this->input->post('email');
@@ -125,10 +125,10 @@ class Users extends MX_Controller {
 			{
 				echo 'Contact administrator';
 			}
-            
+
             //$password = hash('sha256', $this->input->post('password'));
             //echo $password;
-            
+
             //redirect('auth/members');
         }
         else
@@ -178,7 +178,7 @@ class Users extends MX_Controller {
 		{
 			redirect(site_url(),'refresh');
 		}
-		
+
 	}
 	public function add_user_submit()
 	{
@@ -306,7 +306,7 @@ class Users extends MX_Controller {
 					}
 					else
 					{
-						
+
 						$where_arr['idusers'] = $id_user;
 						$newdata = array();
 						$email = $this->input->post('email');
@@ -332,12 +332,12 @@ class Users extends MX_Controller {
 						}
 						$newdetailsdata = array();
 						$first_name = $this->input->post('first_name');
-						if($user->first_name!=$first_name)	
+						if($user->first_name!=$first_name)
 						{
 							$newdetailsdata['first_name'] = $first_name;
 						}
 						$last_name = $this->input->post('last_name');
-						if($user->last_name!=$last_name)	
+						if($user->last_name!=$last_name)
 						{
 							$newdetailsdata['last_name'] = $last_name;
 						}
@@ -351,7 +351,7 @@ class Users extends MX_Controller {
 							redirect('users/get_users','refresh');
 						}
 					}
-					
+
 				}
 			}
 		}
@@ -374,7 +374,7 @@ class Users extends MX_Controller {
 					exit;
 				}
 			}
-			redirect('users/get_users','refresh');			
+			redirect('users/get_users','refresh');
 		}
 		else {
 			redirect(site_url(),'refresh');
@@ -403,14 +403,14 @@ class Users extends MX_Controller {
 					exit;
 				}
 			}
-			redirect('users/get_users','refresh');			
+			redirect('users/get_users','refresh');
 		}
 		else
 		{
 			redirect(site_url(),'refresh');
 		}
 	}
-	
+
 	public function get_groups()
     {
     	if($this->session->userdata('logged_in')=='1')
@@ -431,7 +431,62 @@ class Users extends MX_Controller {
 			redirect('users/login','refresh');
 		}
     }
-	
+	public function edit_group()
+	{
+		if($this->session->userdata('logged_in')=='1')
+		{
+			if($this->in_groups(array('admin')))
+	        {
+	        	$idgroup = $this->uri->segment(3);
+	            $group = $this->users_model->get_groups(array('idgroups'=>$idgroup));
+	            $data['group'] = $group;
+	            $this->load->view('group_edit_view',$data);
+	        }
+	        else
+	        {
+	            redirect(site_url(),'refresh');
+	        }
+		}
+		else
+		{
+			redirect('users/login','refresh');
+		}
+	}
+	public function edit_group_submit()
+	{
+		if($this->session->userdata('logged_in')=='1')
+		{
+			if($this->in_groups(array('admin')))
+	        {
+	        	$this->form_validation->set_rules('id_group','Group ID','trim|is_natural_no_zero|required');
+				$this->form_validation->set_rules('description','Group description','trim|required');
+				if($this->form_validation->run()===FALSE)
+				{
+					$this->load->view('group_edit_view');
+				}
+				else
+				{
+					$group_id = $this->input->post('id_group');
+					$group_description = $this->input->post('description');
+					if(!($this->users_model->update_group(array('description'=>$group_description),array('idgroups'=>$group_id))))
+					{
+						echo 'Damn it... I almost had it...';
+						exit;
+					}
+					redirect('users/get_groups','refresh');
+				}
+
+	        }
+	        else
+	        {
+	            redirect(site_url(),'refresh');
+	        }
+		}
+		else
+		{
+			redirect('users/login','refresh');
+		}
+	}
 	public function profile()
 	{
 		if($this->session->userdata('logged_in')=='1')

@@ -28,7 +28,10 @@
 					echo '<td>'.$group->idgroups.'</td><td>'.$group->name.'</td><td>'.$group->description.'</td>';
 					echo '<td>';
 					echo anchor('users/edit_group/'.$group->idgroups,'<i class="fa fa-pencil fa-fw"></i>');
-					echo anchor('users/delete_group/'.$group->idgroups,'<i class="fa fa-trash-o"></i>');
+					if($group->name!='admin')
+					{
+						echo anchor('users/delete_group/'.$group->idgroups,'<i class="fa fa-trash-o"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
+					}
 					echo '</td>';
 					echo '</tr>';
 				}

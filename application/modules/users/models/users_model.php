@@ -25,11 +25,15 @@ class Users_model extends MY_Model
           return FALSE;
       }
   }
-  public function get_groups()
+  public function get_groups($where_arr = null)
   {
+  	if(!empty($where_arr))
+	{
+		$this->db->where($where_arr);
+	}
   	$this->db->order_by('name','asc');
   	$query = $this->db->get('groups');
-	if($query->num_rows()>0)
+	if($query->num_rows()>1)
 	{
 		foreach($query->result() as $row)
 		{
@@ -37,11 +41,29 @@ class Users_model extends MY_Model
 		}
 		return $data;
 	}
+	elseif($query->num_rows()==1)
+	{
+		return $query->row();
+	}
 	else
 	{
 		return FALSE;
 	}
   }
+	public function update_group($cols,$where_arr)
+	{
+		$this->db->where($where_arr);
+		$this->db->limit(1);
+		$this->db->update('groups',$cols);
+		if($this->db->affected_rows()>0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
   public function get_users()
   {
       $this->db->join('user_details','users.idusers=user_details.idusers','left');
@@ -88,7 +110,7 @@ class Users_model extends MY_Model
 	else
 	{
 		return false;
-	}	
+	}
   }
   public function update_user($newdata,$where_arr)
   {
@@ -102,7 +124,7 @@ class Users_model extends MY_Model
 	else
 	{
 		return false;
-	}	
+	}
   }
   public function add_user_details($cols)
   {
@@ -115,7 +137,7 @@ class Users_model extends MY_Model
 	else
 	{
 		return false;
-	}	
+	}
   }
   public function update_user_details($newdata,$where_arr)
   {
@@ -129,7 +151,7 @@ class Users_model extends MY_Model
 	else
 	{
 		return false;
-	}	
+	}
   }
   public function update_user_groups($groups,$where_arr)
   {
@@ -154,7 +176,7 @@ class Users_model extends MY_Model
 	else
 	{
 		return false;
-	}	
+	}
   }
   public function delete_user_details($where_arr)
   {
@@ -168,7 +190,7 @@ class Users_model extends MY_Model
 	else
 	{
 		return false;
-	}	
+	}
   }
   public function delete_user_groups($where_arr)
   {
@@ -182,6 +204,6 @@ class Users_model extends MY_Model
 	else
 	{
 		return false;
-	}	
+	}
   }
 }
