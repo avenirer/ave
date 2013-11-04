@@ -192,7 +192,7 @@ class Users extends MX_Controller {
 				{
 					$data['nogroup'] = '0';
 				}
-	            $this->load->view('users_view',$data);
+	            $this->load->view('users_nogroup_view',$data);
 	        }
 	        else
 	        {
