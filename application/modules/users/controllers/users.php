@@ -155,7 +155,7 @@ class Users extends MX_Controller {
 	        	$users_nogroup = $this->users_model->get_users_nogroup();
 				if(!empty($group))
 				{
-					if($group == '0')
+					if($group == 'nogroup')
 					{
 						$users = $this->users_model->get_users_nogroup();
 					}
@@ -175,9 +175,9 @@ class Users extends MX_Controller {
 					{
 						if(!array_key_exists($user->idusers, $users_arr))
 						{
-							$users_arr[$user->idusers] = array('idusers'=>$user->idusers,'name'=>$user->first_name.' '.$user->last_name,'email'=>$user->email,'status'=>$user->status,'last_login'=>$user->last_login,'groups'=>array($user->idgroups=>$user->namegroups));
+							$users_arr[$user->idusers] = array('idusers'=>$user->idusers,'name'=>$user->first_name.' '.$user->last_name,'email'=>$user->email,'status'=>$user->status,'last_login'=>$user->last_login);
 						}
-						else
+						if(!empty($user->idgroups))
 						{
 							$users_arr[$user->idusers]['groups'][$user->idgroups]=$user->namegroups;
 						}
