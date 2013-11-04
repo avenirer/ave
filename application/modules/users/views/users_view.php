@@ -7,7 +7,7 @@
 	<?php $this->load->view('top_menu_view');?>
 	<div class="row">
 		<div class="col-lg-9">
-			<h1>Users</h1>
+			<h1><?php echo $heading;?></h1>
 			<?php
 			echo '<p>'.anchor('users/add_user','<i class="fa fa-user"></i> Add user','class="btn btn-primary btn-sm"').'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"').'</p>';
 			if(!empty($users))

@@ -45,7 +45,7 @@ class Users extends MX_Controller {
         }
         else
         {
-        	if($this->session->userdata('logged_in')=='1')
+        	if($this->index())
         	{
 	            if(!empty($this->udata['groups']))
 	            {
@@ -148,7 +148,7 @@ class Users extends MX_Controller {
     }
     public function get_users($group=null)
     {
-    	if($this->session->userdata('logged_in')=='1')
+    	if($this->index())
         {
 	        if($this->in_groups(array('admin')))
 	        {
@@ -158,15 +158,19 @@ class Users extends MX_Controller {
 					if($group == 'nogroup')
 					{
 						$users = $this->users_model->get_users_nogroup();
+						$heading = 'Users with no groups attached';
 					}
 					else
 					{
 						$users = $this->users_model->get_users(array('groups.idgroups'=>$group));
+						$groupdetails = $this->users_model->get_group(array('idgroups'=>$group));
+						$heading = 'Users in group "'.$groupdetails->name.'"';
 					}
 				}
 				else
 				{
 					$users = $this->users_model->get_users();
+					$heading = 'All users';
 				}
 				if(!empty($users))
 				{
@@ -192,15 +196,8 @@ class Users extends MX_Controller {
 				{
 					$data['nogroup'] = '0';
 				}
-				if(!empty($nogroup) && $nogroup == 'nogroup')
-				{
-					$this->load->view('users_nogroup_view',$data);
-				}
-				else
-				{
-					$this->load->view('users_view',$data);
-				}
-
+				$data['heading'] = $heading;
+				$this->load->view('users_view',$data);
 	        }
 	        else
 	        {
@@ -215,7 +212,7 @@ class Users extends MX_Controller {
 
 	public function add_user()
 	{
-		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+		if($this->index() && $this->in_groups(array('admin')))
         {
         	$groups = $this->users_model->get_groups();
 			$data['groups']=$groups;
@@ -229,7 +226,7 @@ class Users extends MX_Controller {
 	}
 	public function add_user_submit()
 	{
-		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+		if($this->index() && $this->in_groups(array('admin')))
         {
 			$this->form_validation->set_rules('first_name','First name','trim|min_length[3]|required');
 			$this->form_validation->set_rules('last_name','Last name','trim|min_length[3]|required');
@@ -274,7 +271,7 @@ class Users extends MX_Controller {
 	}
 	public function edit_user($iduser)
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
         {
 			if($iduser == $this->udata['id'])
 			{
@@ -326,7 +323,7 @@ class Users extends MX_Controller {
 	}
 	public function edit_user_submit()
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
         {
 			if($this->in_groups(array('admin')))
 			{
@@ -407,7 +404,7 @@ class Users extends MX_Controller {
 	}
 	public function change_status()
 	{
-		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+		if($this->index() && $this->in_groups(array('admin')))
         {
         	$iduser = $this->uri->segment(3);
 			$newstatus = $this->uri->segment(4);
@@ -427,7 +424,7 @@ class Users extends MX_Controller {
 	}
 	public function delete_user()
 	{
-		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
+		if($this->index() && $this->in_groups(array('admin')))
         {
         	$iduser = $this->uri->segment(3);
 			if($iduser!=$this->udata['id'])
@@ -458,7 +455,7 @@ class Users extends MX_Controller {
 
 	public function get_groups()
     {
-    	if($this->session->userdata('logged_in')=='1')
+    	if($this->index())
         {
 	        if($this->in_groups(array('admin')))
 	        {
@@ -478,7 +475,7 @@ class Users extends MX_Controller {
     }
 	public function add_group()
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
 		{
 			if($this->in_groups(array('admin')))
 	        {
@@ -496,7 +493,7 @@ class Users extends MX_Controller {
 	}
 	public function add_group_submit()
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
 		{
 			if($this->in_groups(array('admin')))
 	        {
@@ -531,7 +528,7 @@ class Users extends MX_Controller {
 	}
 	public function edit_group()
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
 		{
 			if($this->in_groups(array('admin')))
 	        {
@@ -552,7 +549,7 @@ class Users extends MX_Controller {
 	}
 	public function edit_group_submit()
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
 		{
 			if($this->in_groups(array('admin')))
 	        {
@@ -587,7 +584,7 @@ class Users extends MX_Controller {
 	}
 	public function delete_group()
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
 		{
 			if($this->in_groups(array('admin')))
 	        {
@@ -618,7 +615,7 @@ class Users extends MX_Controller {
 	}
 	public function profile()
 	{
-		if($this->session->userdata('logged_in')=='1')
+		if($this->index())
         {
 			$iduser = $this->udata['id'];
 			$user = $this->users_model->get_user(array('users.idusers'=>$iduser));
