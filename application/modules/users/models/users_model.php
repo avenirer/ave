@@ -113,6 +113,27 @@ class Users_model extends MY_Model
           return FALSE;
       }
   }
+	public function get_users_nogroup()
+	{
+		$this->db->join('users_groups','users.idusers=users_groups.idusers','left');
+		$this->db->where('users_groups.idusers',NULL);
+      $this->db->join('user_details','users.idusers=user_details.idusers','left');
+      $this->db->order_by('user_details.first_name');
+      $this->db->select('users.idusers,users.email,users.status,users.last_login,user_details.first_name,user_details.last_name');
+      $query = $this->db->get($this->table);
+      if($query->num_rows()>0)
+      {
+          foreach($query->result() as $row)
+          {
+              $data[] = $row;
+          }
+          return $data;
+      }
+      else
+      {
+          return FALSE;
+      }
+  }
   public function get_user($where_arr)
   {
   	$this->db->join('user_details','users.idusers=user_details.idusers','left');

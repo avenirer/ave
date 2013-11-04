@@ -166,6 +166,26 @@ class Users extends MX_Controller {
 			redirect('users/login','refresh');
 		}
     }
+	public function get_users_nogroup()
+    {
+    	if($this->session->userdata('logged_in')=='1')
+        {
+	        if($this->in_groups(array('admin')))
+	        {
+	            $users = $this->users_model->get_users_nogroup();
+	            $data['users'] = $users;
+	            $this->load->view('users_view',$data);
+	        }
+	        else
+	        {
+	            redirect(site_url(),'refresh');
+	        }
+		}
+		else
+		{
+			redirect('users/login','refresh');
+		}
+    }
 	public function add_user()
 	{
 		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))
@@ -346,10 +366,11 @@ class Users extends MX_Controller {
 							$this->users_model->update_user_details($newdetailsdata,$where_arr);
 						}
 						$groups = $this->input->post('groups');
-						$this->users_model->update_user_groups($groups,$where_arr);
+						if(!empty($groups))
 						{
-							redirect('users/get_users','refresh');
+							$this->users_model->update_user_groups($groups,$where_arr);
 						}
+						redirect('users/get_users','refresh');
 					}
 
 				}
