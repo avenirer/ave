@@ -18,6 +18,7 @@
 				echo '<th scope="col">ID</th>';
 				echo '<th scope="col">Name</th>';
 				echo '<th scope="col">Email</th>';
+				echo '<th scope="col">Groups</th>';
 				echo '<th scope="col">Last login</th>';
 				echo '<th scope="col">Status</th>';
 				echo '<th scope="col">Actions</th>';
@@ -27,24 +28,28 @@
 				foreach($users as $user)
 				{
 					echo '<tr>';
-					echo '<td>'.$user->idusers.'</td><td>'.$user->first_name.' '.$user->last_name.'</td><td>'.$user->email.'</td><td>'.$user->last_login.'</td>';
+					echo '<td>'.$user['idusers'].'</td>';
+					echo '<td>'.$user['name'].'</td>';
+					echo '<td>'.$user['email'].'</td>';
+					echo '<td>'.implode(', ', $user['groups']);
+					echo '<td>'.$user['last_login'].'</td>';
 					echo '<td>';
-					switch ($user->status)
+					switch ($user['status'])
 					{
 						case '1':
-							echo anchor('users/change_status/'.$user->idusers.'/0','<i class="fa fa-thumbs-o-up"></i>');
+							echo anchor('users/change_status/'.$user['idusers'].'/0','<i class="fa fa-thumbs-o-up"></i>');
 							break;
 
 						case '0':
-							echo anchor('users/change_status/'.$user->idusers.'/1','<i class="fa fa-thumbs-o-down"></i>');
+							echo anchor('users/change_status/'.$user['idusers'].'/1','<i class="fa fa-thumbs-o-down"></i>');
 							break;
 					}
 					'</td>';
 					echo '<td>';
-					echo anchor('users/edit_user/'.$user->idusers,'<i class="fa fa-pencil fa-fw"></i>');
-					if($user->status == '0')
+					echo anchor('users/edit_user/'.$user['idusers'],'<i class="fa fa-pencil fa-fw"></i>');
+					if($user['status'] == '0')
 					{
-						echo anchor('users/delete_user/'.$user->idusers,'<i class="fa fa-trash-o"></i>');
+						echo anchor('users/delete_user/'.$user['idusers'],'<i class="fa fa-trash-o"></i>');
 					}
 					echo '</td>';
 					echo '</tr>';

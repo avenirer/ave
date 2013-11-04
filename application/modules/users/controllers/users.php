@@ -146,15 +146,37 @@ class Users extends MX_Controller {
 		}
 	    redirect('users/login','refresh');
     }
-    public function get_users()
+    public function get_users($nogroup=null)
     {
     	if($this->session->userdata('logged_in')=='1')
         {
 	        if($this->in_groups(array('admin')))
 	        {
 	        	$users_nogroup = $this->users_model->get_users_nogroup();
-	            $users = $this->users_model->get_users();
-	            $data['users'] = $users;
+				if(!empty($nogroup) && $nogroup == 'nogroup')
+				{
+					$users = $this->users_model->get_users_nogroup();
+				}
+				else
+				{
+					$users = $this->users_model->get_users();
+				}
+				if(!empty($users))
+				{
+					$users_arr = array();
+					foreach($users as $user)
+					{
+						if(!array_key_exists($user->idusers, $users_arr))
+						{
+							$users_arr[$user->idusers] = array('idusers'=>$user->idusers,'name'=>$user->first_name.' '.$user->last_name,'email'=>$user->email,'status'=>$user->status,'last_login'=>$user->last_login,'groups'=>array($user->idgroups=>$user->namegroups));
+						}
+						else
+						{
+							$users_arr[$user->idusers]['groups'][$user->idgroups]=$user->namegroups;
+						}
+					}
+				}
+	            $data['users'] = $users_arr;
 				if(!empty($users_nogroup))
 				{
 					$data['nogroup'] = sizeof($users_nogroup);
@@ -163,7 +185,15 @@ class Users extends MX_Controller {
 				{
 					$data['nogroup'] = '0';
 				}
-	            $this->load->view('users_view',$data);
+				if(!empty($nogroup) && $nogroup == 'nogroup')
+				{
+					$this->load->view('users_nogroup_view',$data);
+				}
+				else
+				{
+					$this->load->view('users_view',$data);
+				}
+
 	        }
 	        else
 	        {
@@ -175,35 +205,7 @@ class Users extends MX_Controller {
 			redirect('users/login','refresh');
 		}
     }
-	public function get_users_nogroup()
-    {
-    	if($this->session->userdata('logged_in')=='1')
-        {
-	        if($this->in_groups(array('admin')))
-	        {
-	        	$users_nogroup = $this->users_model->get_users_nogroup();
-	            $users = $this->users_model->get_users_nogroup();
-	            $data['users'] = $users;
-				if(!empty($users_nogroup))
-				{
-					$data['nogroup'] = sizeof($users_nogroup);
-				}
-				else
-				{
-					$data['nogroup'] = '0';
-				}
-	            $this->load->view('users_nogroup_view',$data);
-	        }
-	        else
-	        {
-	            redirect(site_url(),'refresh');
-	        }
-		}
-		else
-		{
-			redirect('users/login','refresh');
-		}
-    }
+
 	public function add_user()
 	{
 		if(($this->session->userdata('logged_in')=='1') && $this->in_groups(array('admin')))

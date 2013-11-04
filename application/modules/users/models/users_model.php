@@ -4,6 +4,7 @@ class Users_model extends MY_Model
 {
     public function __construct() {
     parent::__construct();
+	$this->load->library('subquery');
     $this->table ='users';
   }
   public function get_user_groups($where_arr)
@@ -94,32 +95,39 @@ class Users_model extends MY_Model
 			return FALSE;
 		}
 	}
-  public function get_users()
-  {
-      $this->db->join('user_details','users.idusers=user_details.idusers','left');
-      $this->db->order_by('user_details.first_name');
-      $this->db->select('users.idusers,users.email,users.status,users.last_login,user_details.first_name,user_details.last_name');
-      $query = $this->db->get($this->table);
-      if($query->num_rows()>0)
-      {
-          foreach($query->result() as $row)
-          {
-              $data[] = $row;
-          }
-          return $data;
-      }
-      else
-      {
-          return FALSE;
-      }
-  }
+	public function get_users($where_arr = null)
+	{
+		if(!empty($where_arr))
+		{
+			$this->db->where($where_arr);
+		}
+		$this->db->join('user_details','users.idusers=user_details.idusers','left');
+		$this->db->join('users_groups','users.idusers=users_groups.idusers');
+		$this->db->join('groups','users_groups.idgroups = groups.idgroups');
+		$this->db->order_by('user_details.first_name');
+		$this->db->select('users.idusers,users.email,users.status,users.last_login,user_details.first_name,user_details.last_name, groups.name as namegroups, groups.idgroups');
+		$query = $this->db->get($this->table);
+		if($query->num_rows()>0)
+		{
+			foreach($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 	public function get_users_nogroup()
 	{
 		$this->db->join('users_groups','users.idusers=users_groups.idusers','left');
 		$this->db->where('users_groups.idusers',NULL);
 		$this->db->join('user_details','users.idusers=user_details.idusers','left');
+		$this->db->join('groups','users_groups.idgroups = groups.idgroups','left');
 		$this->db->order_by('user_details.first_name');
-		$this->db->select('users.idusers,users.email,users.status,users.last_login,user_details.first_name,user_details.last_name');
+		$this->db->select('users.idusers,users.email,users.status,users.last_login,user_details.first_name,user_details.last_name, groups.name as namegroups, groups.idgroups');
 		$query = $this->db->get($this->table);
 		if($query->num_rows()>0)
 		{

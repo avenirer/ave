@@ -25,7 +25,7 @@
 				foreach($groups as $group)
 				{
 					echo '<tr>';
-					echo '<td>'.$group->idgroups.'</td><td>'.$group->name.'</td><td>'.$group->description.'</td>';
+					echo '<td>'.$group->idgroups.'</td><td>'.anchor('users/get_group_users/'.$group->idgroups,$group->name).'</td><td>'.$group->description.'</td>';
 					echo '<td>';
 					echo anchor('users/edit_group/'.$group->idgroups,'<i class="fa fa-pencil fa-fw"></i>');
 					if($group->name!='admin')
