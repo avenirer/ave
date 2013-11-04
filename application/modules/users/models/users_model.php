@@ -25,15 +25,11 @@ class Users_model extends MY_Model
           return FALSE;
       }
   }
-  public function get_groups($where_arr = null)
+  public function get_groups()
   {
-  	if(!empty($where_arr))
-	{
-		$this->db->where($where_arr);
-	}
   	$this->db->order_by('name','asc');
   	$query = $this->db->get('groups');
-	if($query->num_rows()>1)
+	if($query->num_rows()>0)
 	{
 		foreach($query->result() as $row)
 		{
@@ -41,7 +37,17 @@ class Users_model extends MY_Model
 		}
 		return $data;
 	}
-	elseif($query->num_rows()==1)
+	else
+	{
+		return FALSE;
+	}
+  }
+  public function get_group($where_arr)
+  {
+  	$this->db->where($where_arr);
+	$this->db->order_by('name','asc');
+  	$query = $this->db->get('groups');
+	if($query->num_rows()==1)
 	{
 		return $query->row();
 	}
@@ -50,12 +56,36 @@ class Users_model extends MY_Model
 		return FALSE;
 	}
   }
+	public function add_group($cols)
+	{
+		$this->db->limit(1);
+		$this->db->insert('groups',$cols);
+		if($this->db->affected_rows()>0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 	public function update_group($cols,$where_arr)
 	{
 		$this->db->where($where_arr);
 		$this->db->limit(1);
 		$this->db->update('groups',$cols);
 		if($this->db->affected_rows()>0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	public function delete_group($where_arr)
+	{
+		if($this->db->delete('groups',$where_arr) && $this->db->delete('users_groups',$where_arr))
 		{
 			return TRUE;
 		}

@@ -431,6 +431,59 @@ class Users extends MX_Controller {
 			redirect('users/login','refresh');
 		}
     }
+	public function add_group()
+	{
+		if($this->session->userdata('logged_in')=='1')
+		{
+			if($this->in_groups(array('admin')))
+	        {
+	        	$this->load->view('group_add_view');
+	        }
+	        else
+	        {
+	            redirect(site_url(),'refresh');
+	        }
+		}
+		else
+		{
+			redirect('users/login','refresh');
+		}
+	}
+	public function add_group_submit()
+	{
+		if($this->session->userdata('logged_in')=='1')
+		{
+			if($this->in_groups(array('admin')))
+	        {
+	        	$this->form_validation->set_rules('name','Group name','trim|alpha|required');
+				$this->form_validation->set_rules('description','Group description','trim|required');
+				if($this->form_validation->run()===FALSE)
+				{
+					$this->load->view('group_add_view');
+				}
+				else
+				{
+					$group_name = strtolower($this->input->post('name'));
+					$group_description = $this->input->post('description');
+					if(!$this->users_model->add_group(array('description'=>$group_description, 'name'=>$group_name)))
+					{
+						echo 'Damn it... Are there too many groups or whaaaaaaaat?...';
+						exit;
+					}
+					redirect('users/get_groups','refresh');
+				}
+
+	        }
+	        else
+	        {
+	            redirect(site_url(),'refresh');
+	        }
+		}
+		else
+		{
+			redirect('users/login','refresh');
+		}
+	}
 	public function edit_group()
 	{
 		if($this->session->userdata('logged_in')=='1')
@@ -438,7 +491,7 @@ class Users extends MX_Controller {
 			if($this->in_groups(array('admin')))
 	        {
 	        	$idgroup = $this->uri->segment(3);
-	            $group = $this->users_model->get_groups(array('idgroups'=>$idgroup));
+	            $group = $this->users_model->get_group(array('idgroups'=>$idgroup));
 	            $data['group'] = $group;
 	            $this->load->view('group_edit_view',$data);
 	        }
@@ -476,6 +529,37 @@ class Users extends MX_Controller {
 					redirect('users/get_groups','refresh');
 				}
 
+	        }
+	        else
+	        {
+	            redirect(site_url(),'refresh');
+	        }
+		}
+		else
+		{
+			redirect('users/login','refresh');
+		}
+	}
+	public function delete_group()
+	{
+		if($this->session->userdata('logged_in')=='1')
+		{
+			if($this->in_groups(array('admin')))
+	        {
+	        	$idgroup = $this->uri->segment(3);
+				if($idgroup != '1')
+				{
+					if(!$this->users_model->delete_group(array('idgroups'=>$idgroup)))
+					{
+						echo 'Errors! Oh, so many errors!...';
+						exit;
+					}
+					redirect('users/get_groups','refresh');
+				}
+				else
+				{
+					redirect('users/get_groups','refresh');
+				}
 	        }
 	        else
 	        {
