@@ -629,4 +629,21 @@ class Users extends MX_Controller {
 			redirect('users/login','refresh');
 		}
 	}
+	public function display_usermenu()
+	{
+		if($this->index())
+		{
+			$user = $this->users_model->get_user(array('users.idusers'=>$this->udata['id']));
+			$groups = $this->udata['groups'];
+			if(!empty($groups))
+			{
+				foreach($groups as $group)
+				{
+					$data['groups_menu'][] = 'menu_'.$group['name'].'_view';
+				}
+			}
+			$data['user'] = $user;
+			$this->load->view('menu_general_view',$data);
+		}
+	}
 }

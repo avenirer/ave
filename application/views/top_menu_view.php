@@ -29,15 +29,7 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-    	<li><?php echo anchor('users/profile','<i class="fa fa-user"></i> Profile');?></li>
-        <li class="dropdown">
-            <?php echo anchor('#','Administer users <b class="caret"></b>','class="dropdown-toggle" data-toggle="dropdown"');?>
-            <ul class="dropdown-menu">
-                <li><?php echo anchor('users/get_users','<i class="fa fa-user"></i> View/Edit users');?></li>
-                <li><?php echo anchor('users/get_groups','<i class="fa fa-group"></i> View/Edit groups');?></li>
-            </ul>
-        </li>
-        <li><?php echo anchor('users/logout','<span class="glyphicon glyphicon-log-out"></span> Logout');?></li>
+    	<?php echo Modules::run('users/display_usermenu');?>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
