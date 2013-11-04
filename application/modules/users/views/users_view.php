@@ -9,7 +9,7 @@
 		<div class="col-lg-9">
 			<h1>Users</h1>
 			<?php
-			echo '<p>'.anchor('users/add_user','<i class="fa fa-user"></i> Add user','class="btn btn-primary btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"').'</p>';
+			echo '<p>'.anchor('users/add_user','<i class="fa fa-user"></i> Add user','class="btn btn-primary btn-sm"').'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"').'</p>';
 			if(!empty($users))
 			{
 				echo '<table class="table table-condensed table-bordered table-striped table-hover">';
@@ -36,7 +36,7 @@
 					{
 						foreach($user['groups'] as $idgroup => $groupname)
 						{
-							echo anchor('users/get_group_users/'.$idgroup,$groupname).' ';
+							echo anchor('users/get_users/'.$idgroup,$groupname).' ';
 						}
 					}
 					echo '<td>'.$user['last_login'].'</td>';

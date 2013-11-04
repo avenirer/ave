@@ -146,16 +146,23 @@ class Users extends MX_Controller {
 		}
 	    redirect('users/login','refresh');
     }
-    public function get_users($nogroup=null)
+    public function get_users($group=null)
     {
     	if($this->session->userdata('logged_in')=='1')
         {
 	        if($this->in_groups(array('admin')))
 	        {
 	        	$users_nogroup = $this->users_model->get_users_nogroup();
-				if(!empty($nogroup) && $nogroup == 'nogroup')
+				if(!empty($group))
 				{
-					$users = $this->users_model->get_users_nogroup();
+					if($group == '0')
+					{
+						$users = $this->users_model->get_users_nogroup();
+					}
+					else
+					{
+						$users = $this->users_model->get_users(array('groups.idgroups'=>$group));
+					}
 				}
 				else
 				{
@@ -175,8 +182,8 @@ class Users extends MX_Controller {
 							$users_arr[$user->idusers]['groups'][$user->idgroups]=$user->namegroups;
 						}
 					}
+					$data['users'] = $users_arr;
 				}
-	            $data['users'] = $users_arr;
 				if(!empty($users_nogroup))
 				{
 					$data['nogroup'] = sizeof($users_nogroup);
