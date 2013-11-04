@@ -31,7 +31,14 @@
 					echo '<td>'.$user['idusers'].'</td>';
 					echo '<td>'.$user['name'].'</td>';
 					echo '<td>'.$user['email'].'</td>';
-					echo '<td>'.implode(', ', $user['groups']);
+					echo '<td>';
+					if(!empty($user['groups']))
+					{
+						foreach($user['groups'] as $idgroup => $groupname)
+						{
+							echo anchor('users/get_group_users/'.$idgroup,$groupname).' ';
+						}
+					}
 					echo '<td>'.$user['last_login'].'</td>';
 					echo '<td>';
 					switch ($user['status'])
