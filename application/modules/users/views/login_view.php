@@ -19,7 +19,7 @@
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
       }
-      
+
 
     </style>
 </head>
@@ -35,6 +35,10 @@ echo '<p>Login below</p>';
 //echo '<div class="form-group">';
 //echo lang('login_identity_label', 'identity');
 echo validation_errors();
+if(!empty($errors))
+{
+	echo $errors;
+}
 echo '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>';
 echo form_input('email',set_value('email'),'class="form-control input-lg" placeholder="Email"');
 echo '</div>';

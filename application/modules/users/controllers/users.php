@@ -79,7 +79,7 @@ class Users extends MX_Controller {
     {
         $this->load->view('login_view');
     }
-    public function login_submit()
+	public function login_submit()
     {
         $this->form_validation->set_rules('email','Email','trim|valid_email|required');
         $this->form_validation->set_rules('password','Password','trim|required');
@@ -112,19 +112,20 @@ class Users extends MX_Controller {
 					{
 						$attempts = $emailpresent->login_attempts+1;
 						$this->users_model->update(array('login_attempts'=>$attempts,'ip'=>$this->session->userdata('ip_address')),array('email'=>$email));
-                		echo 'Incorrect email/password. Try again';
+                		$data['errors'] = 'Your email/password combination is wrong. You have '.(5-$attempts).' more tries';
                 	}
 					else
 					{
 						$this->users_model->update(array('status'=>'0','ip'=>$this->session->userdata('ip_address')),array('email'=>$email));
-                		echo 'Incorrect email/password. Stop trying and contact administrator.';
+                		$data['errors'] = 'Incorrect email/password. Too many tries. You should contact administrator.';
 					}
 				}
             }
 			else
 			{
-				echo 'Contact administrator';
+				$data['errors'] = 'Your email is not registered with this application or has been deactivated.';
 			}
+			$this->load->view('login_view',$data);
 
             //$password = hash('sha256', $this->input->post('password'));
             //echo $password;
