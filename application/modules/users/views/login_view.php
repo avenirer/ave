@@ -37,7 +37,7 @@ echo '<p>Login below</p>';
 echo validation_errors();
 if(!empty($errors))
 {
-	echo $errors;
+	echo '<div class="alert alert-danger">'.$errors.'</div>';
 }
 echo '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>';
 echo form_input('email',set_value('email'),'class="form-control input-lg" placeholder="Email"');
