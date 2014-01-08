@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Nov 03, 2013 at 11:13 PM
--- Server version: 5.5.25a
--- PHP Version: 5.4.4
+-- Gazda: 127.0.0.1
+-- Timp de generare: 08 Ian 2014 la 23:07
+-- Versiune server: 5.6.11
+-- Versiune PHP: 5.5.3
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,13 +17,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `ave`
+-- Bază de date: `ave`
 --
+CREATE DATABASE IF NOT EXISTS `ave` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ave`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ci_sessions`
+-- Structura de tabel pentru tabelul `ci_sessions`
 --
 
 CREATE TABLE IF NOT EXISTS `ci_sessions` (
@@ -37,17 +39,16 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `ci_sessions`
+-- Salvarea datelor din tabel `ci_sessions`
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('bbcd193ae70f8fd93578093ab126ba24', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383430894, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}'),
-('f194bbe40b32b0ee82d4ac8a6146372c', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383516549, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}');
+('54edf63045389353abaca176c7a35c7a', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389218770, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Structura de tabel pentru tabelul `groups`
 --
 
 CREATE TABLE IF NOT EXISTS `groups` (
@@ -56,20 +57,20 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`idgroups`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `groups`
+-- Salvarea datelor din tabel `groups`
 --
 
 INSERT INTO `groups` (`idgroups`, `name`, `description`) VALUES
 (1, 'admin', 'Administrators'),
-(2, 'members', 'Members');
+(3, 'members', 'Members');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `temp_users`
+-- Structura de tabel pentru tabelul `temp_users`
 --
 
 CREATE TABLE IF NOT EXISTS `temp_users` (
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `temp_users` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structura de tabel pentru tabelul `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -101,53 +102,72 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `users`
+-- Salvarea datelor din tabel `users`
 --
 
 INSERT INTO `users` (`idusers`, `email`, `password`, `last_login`, `last_action`, `login_attempts`, `ip`, `status`) VALUES
-(2, 'admin@admin.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2013-11-03 20:45:50', '2013-11-03 20:45:50', 0, '::1', 1),
+(2, 'admin@admin.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2014-01-08 20:09:14', '2014-01-08 21:07:10', 0, '::1', 1),
 (4, 'avenir.ro@gmail.com', '067cca6ce67e8d78c948caa49ed9bb92', NULL, '0000-00-00 00:00:00', 0, '', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users_groups`
+-- Structura de tabel pentru tabelul `users_groups`
 --
 
 CREATE TABLE IF NOT EXISTS `users_groups` (
   `idusers` int(11) NOT NULL,
   `idgroups` int(11) NOT NULL,
-  UNIQUE KEY `idusers` (`idusers`,`idgroups`)
+  UNIQUE KEY `usersgroups` (`idusers`,`idgroups`),
+  KEY `idgroups` (`idgroups`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users_groups`
+-- Salvarea datelor din tabel `users_groups`
 --
 
 INSERT INTO `users_groups` (`idusers`, `idgroups`) VALUES
 (2, 1),
-(4, 1);
+(4, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_details`
+-- Structura de tabel pentru tabelul `user_details`
 --
 
 CREATE TABLE IF NOT EXISTS `user_details` (
   `idusers` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `idusers` (`idusers`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user_details`
+-- Salvarea datelor din tabel `user_details`
 --
 
 INSERT INTO `user_details` (`idusers`, `first_name`, `last_name`, `last_login`) VALUES
 (2, 'Admin', 'Istrator', '2013-11-01 21:37:02'),
 (4, 'Adrian', 'Voicu', '2013-11-02 22:13:52');
+
+--
+-- Restrictii pentru tabele sterse
+--
+
+--
+-- Restrictii pentru tabele `users_groups`
+--
+ALTER TABLE `users_groups`
+  ADD CONSTRAINT `users_groups_ibfk_2` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_groups_ibfk_1` FOREIGN KEY (`idgroups`) REFERENCES `groups` (`idgroups`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrictii pentru tabele `user_details`
+--
+ALTER TABLE `user_details`
+  ADD CONSTRAINT `user_details_ibfk_1` FOREIGN KEY (`idusers`) REFERENCES `users` (`idusers`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
