@@ -10,6 +10,7 @@ class MY_Model extends CI_Model
   public function __construct()
   {
     parent::__construct();
+	$this->load->database();
 
 
   }
@@ -45,14 +46,13 @@ class MY_Model extends CI_Model
 	$this->db->select($select);
 	}
 	$query = $this->db->get($this->table);
-	echo $this->db->last_query();
 	if($query->num_rows()>0)
 	{
-	foreach($query->result() as $row)
-	{
-		$data[] = $row;
-	}
-	return $data;
+		foreach($query->result() as $row)
+		{
+			$data[] = $row;
+		}
+		return $data;
 	}
 	else
 	{
