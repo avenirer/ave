@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
 -- Gazda: 127.0.0.1
--- Timp de generare: 08 Ian 2014 la 23:07
--- Versiune server: 5.6.11
--- Versiune PHP: 5.5.3
+-- Timp de generare: 20 Ian 2014 la 21:22
+-- Versiune server: 5.5.34
+-- Versiune PHP: 5.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,61 @@ SET time_zone = "+00:00";
 --
 -- Bază de date: `ave`
 --
-CREATE DATABASE IF NOT EXISTS `ave` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ave`;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `articles`
+--
+
+CREATE TABLE IF NOT EXISTS `articles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_category` int(11) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `title_tag` varchar(70) NOT NULL,
+  `teaser` text NOT NULL,
+  `description` varchar(155) NOT NULL,
+  `body` text NOT NULL,
+  `keywords` varchar(250) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` int(11) NOT NULL,
+  `edited_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `edited_by` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_category` (`id_category`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_parent` int(11) NOT NULL DEFAULT '0',
+  `category` varchar(200) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_by` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Salvarea datelor din tabel `categories`
+--
+
+INSERT INTO `categories` (`id`, `id_parent`, `category`, `created_at`, `created_by`, `updated_at`, `updated_by`, `status`) VALUES
+(1, 0, 'test', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0),
+(2, 0, 'test 3', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0),
+(3, 0, 'test 3', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0),
+(4, 2, 'test 4', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0),
+(5, 1, 'edited too', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0),
+(6, 0, 'editedagainwithtimestampanduser', '0000-00-00 00:00:00', 0, '2014-01-20 13:52:28', 2, 1),
+(7, 0, 'test data', '2014-01-20 14:45:40', 0, '0000-00-00 00:00:00', 0, 0),
+(8, 6, 'test add categ', '2014-01-20 14:54:24', 2, '0000-00-00 00:00:00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -43,7 +96,9 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('54edf63045389353abaca176c7a35c7a', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389218770, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}');
+('2fced687d003a700f63d8615b7e6d7b0', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.76 Safari/537.36', 1390248986, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}'),
+('54edf63045389353abaca176c7a35c7a', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', 1389218770, 'a:5:{s:9:"user_data";s:0:"";s:5:"email";s:15:"admin@admin.com";s:6:"iduser";s:1:"2";s:9:"logged_in";s:1:"1";s:6:"groups";a:1:{i:0;a:2:{s:8:"idgroups";s:1:"1";s:4:"name";s:5:"admin";}}}'),
+('7f76398acb098f9730921dc19a8ac3c3', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.76 Safari/537.36', 1390248986, '');
 
 -- --------------------------------------------------------
 
@@ -106,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`idusers`, `email`, `password`, `last_login`, `last_action`, `login_attempts`, `ip`, `status`) VALUES
-(2, 'admin@admin.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2014-01-08 20:09:14', '2014-01-08 21:07:10', 0, '::1', 1),
+(2, 'admin@admin.com', '5f4dcc3b5aa765d61d8327deb882cf99', '2014-01-20 19:16:36', '2014-01-20 19:20:35', 0, '::1', 1),
 (4, 'avenir.ro@gmail.com', '067cca6ce67e8d78c948caa49ed9bb92', NULL, '0000-00-00 00:00:00', 0, '', 1);
 
 -- --------------------------------------------------------
