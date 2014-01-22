@@ -10,14 +10,15 @@
 			<h1>Edit category</h1>
 			<?php
 				echo form_open('articles/categories/edit_category_submit','class="form-horizontal"');
-				echo validation_errors();
 				echo '<div class="form-group">';
-				echo form_label('Category:','category',array('class'=>'col-lg-4 control-label'));
+				echo form_error('category');
+                                echo form_label('Category name:','category',array('class'=>'col-lg-4 control-label'));
 				echo '<div class="col-lg-4">';
 				echo form_input('category',set_value('category',$editcategory->category),'class="form-control"');
 				echo '</div>';
 				echo '</div>';
 				echo '<div class="form-group">';
+                                echo form_error('parent');
 				echo form_label('Parent category:','parent',array('class'=>'col-lg-4 control-label'));
 				echo '<div class="col-lg-4">';
 				$options = array('0'=>'No parent');
