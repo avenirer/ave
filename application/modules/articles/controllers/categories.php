@@ -35,6 +35,7 @@ class Categories extends MX_Controller {
     }
     public function add_category_submit()
     {
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
         $this->form_validation->set_rules('category','Category name','trim|required');
         $this->form_validation->set_rules('parent','Parent category','trim|is_natural|required');
         if($this->form_validation->run()===FALSE)
@@ -56,6 +57,7 @@ class Categories extends MX_Controller {
     }
     public function edit_category_submit()
     {
+        $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
         $this->form_validation->set_rules('category','Category name','trim|required');
         $this->form_validation->set_rules('parent','Parent category','trim|is_natural|required');
         $this->form_validation->set_rules('id','Category ID','trim|is_natural_no_zero|required');
