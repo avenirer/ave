@@ -88,12 +88,14 @@ class Users extends MX_Controller {
         {
             $email = $this->input->post('email');
             $password = md5($this->input->post('password'));
-            $user = $this->users_model->get(array('email'=>$email,'password'=>$password,'status'=>'1'));
+            $user = $this->users_model->get_user(array('email'=>$email,'password'=>$password,'status'=>'1'));
             if($user)
             {
                 $user->groups = $this->users_model->get_user_groups(array('users_groups.idusers'=>$user->idusers));
                 $userdata = array(
                     'email' => $user->email,
+					'first_name' => $user->first_name,
+					'last_name' => $user->last_name,
                     'iduser' => $user->idusers,
                     'logged_in' => '1',
                     'groups' => $user->groups
