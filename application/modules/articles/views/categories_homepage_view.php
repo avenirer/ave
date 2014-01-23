@@ -33,9 +33,10 @@
 						echo '>';
 						echo '<td>'.$category->id.'</td>';
 						echo '<td>'.$category->id_parent.'</td>';
-						echo '<td>'.$category->category.'</td>';
 						echo '<td>';
 						echo anchor('articles/categories/edit_category/'.$category->id,'<i class="fa fa-pencil fa-fw"></i>');
+						echo $category->category.'</td>';
+						echo '<td>';
 						switch ($category->status) {
 							case '0':
 								$newstatus = '1';

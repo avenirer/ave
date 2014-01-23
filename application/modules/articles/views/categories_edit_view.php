@@ -9,16 +9,18 @@
 		<div class="col-lg-9">
 			<h1>Edit category</h1>
 			<?php
+			if(!empty($editcategory))
+			{
 				echo form_open('articles/categories/edit_category_submit','class="form-horizontal"');
 				echo '<div class="form-group">';
 				echo form_error('category');
-                                echo form_label('Category name:','category',array('class'=>'col-lg-4 control-label'));
+                echo form_label('Category name:','category',array('class'=>'col-lg-4 control-label'));
 				echo '<div class="col-lg-4">';
 				echo form_input('category',set_value('category',$editcategory->category),'class="form-control"');
 				echo '</div>';
 				echo '</div>';
 				echo '<div class="form-group">';
-                                echo form_error('parent');
+                echo form_error('parent');
 				echo form_label('Parent category:','parent',array('class'=>'col-lg-4 control-label'));
 				echo '<div class="col-lg-4">';
 				$options = array('0'=>'No parent');
@@ -36,8 +38,9 @@
 				echo form_hidden('id',$editcategory->id);
 				echo '</div>';
 				echo '</div>';
-				echo form_submit('add','Edit category','class="col-lg-4 col-lg-offset-2 btn btn-primary"');
+				echo form_submit('edit','Edit category','class="col-lg-4 col-lg-offset-2 btn btn-primary"');
 				echo form_close();
+			}
 			?>
 		</div>
 		<div class="col-lg-3">

@@ -6,7 +6,6 @@ class Categories extends MX_Controller {
     public function __construct() {
         parent::__construct();
         Modules::run('users/index');
-		$this->load->model('categories_model');
     }
     public function index()
     {
@@ -27,6 +26,7 @@ class Categories extends MX_Controller {
         $int_category = intval($id_category);
         if(!empty($int_category))
         {
+			$this->load->model('categories_model');
             $category = $this->categories_model->get(array('id'=>$int_category));
             $data['editcategory']=$category;
             $data['categories']=$this->get_categories();
@@ -48,6 +48,7 @@ class Categories extends MX_Controller {
             $str_category = htmlentities($this->input->post('category'));
             $int_parent = intval($this->input->post('parent'));
             $created_by = $this->session->userdata('iduser');
+			$this->load->model('categories_model');
             if($this->categories_model->insert(array('id_parent'=>$int_parent,'category'=>$str_category,'created_by'=>$created_by)))
             {
                 $this->cache->delete('articles_categories');
@@ -63,8 +64,9 @@ class Categories extends MX_Controller {
         $this->form_validation->set_rules('id','Category ID','trim|is_natural_no_zero|required');
         if($this->form_validation->run()===FALSE)
         {
-            $data['category'] = intval($this->input->post('id'));
-            $categories = $this->cache->get('articles_categories');
+			$this->load->model('categories_model');
+            $category = $this->categories_model->get(array('id'=>$this->input->post('id')));
+            $data['editcategory']=$category;
             $data['categories'] = $this->get_categories();
             $this->load->view('categories_edit_view',$data);
         }
@@ -74,8 +76,9 @@ class Categories extends MX_Controller {
             $int_parent = intval($this->input->post('parent'));
             $int_id_category = intval($this->input->post('id'));
             $timestamp = date('Y-m-d H:i:s');
-            $updated_by = $this->session->userdata('iduser');
-            if($this->categories_model->update(array('id_parent'=>$int_parent,'category'=>$str_category,'updated_at'=>$timestamp,'updated_by'=>$updated_by),array('id'=>$int_id_category)))
+            $edited_by = $this->session->userdata('iduser');
+			$this->load->model('categories_model');
+            if($this->categories_model->update(array('id_parent'=>$int_parent,'category'=>$str_category,'edited_at'=>$timestamp,'edited_by'=>$edited_by),array('id'=>$int_id_category)))
             {
                 $this->cache->delete('articles_categories');
                 redirect(site_url('articles/categories'),'refresh');
@@ -86,6 +89,7 @@ class Categories extends MX_Controller {
     {
         $int_newstatus = intval($status);
         $int_category = intval($category);
+		$this->load->model('categories_model');
         if($this->categories_model->update(array('status'=>$int_newstatus),array('id'=>$int_category)))
         {
             $this->cache->delete('articles_categories');
@@ -97,6 +101,7 @@ class Categories extends MX_Controller {
         $categories = $this->cache->get('articles_categories');
         if(empty($categories))
         {
+			$this->load->model('categories_model');
             $categories = $this->categories_model->get_all(NULL, 'category');
             if(!empty($categories))
             {
@@ -111,6 +116,6 @@ class Categories extends MX_Controller {
         {
             return false;
         }
-        
+
     }
 }
