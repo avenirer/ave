@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Articles extends MX_Controller {
-    protected $udata = array();
     //private $currenturl = '';
     public function __construct() {
         parent::__construct();
@@ -28,6 +27,7 @@ class Articles extends MX_Controller {
 	{
 		$data['categories'] = Modules::run('articles/categories/get_categories');
 		$data['authors'] = Modules::run('articles/authors/get_authors');
+
 		$this->load->view('articles_add_view',$data);
 	}
 	public function edit_article($idarticle)
@@ -35,6 +35,7 @@ class Articles extends MX_Controller {
 		$idarticle = intval($idarticle);
 		if(!empty($idarticle))
 		{
+			$data['photos'] = Modules::run('photos/get_photos_article',$idarticle);
 			$this->load->model('articles_model');
 			$data['editarticle'] = $this->articles_model->get(array('id'=>$idarticle));
 			$data['categories'] = Modules::run('articles/categories/get_categories');

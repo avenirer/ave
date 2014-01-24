@@ -20,6 +20,19 @@
 	<script type="text/javascript" src="<?php echo site_url('js/tinymce/tinymce.min.js');?>"></script>
 	<script type="text/javascript">
 tinymce.init({
-    selector: "textarea.tinymce"
+    selector: "textarea.tinymce",
+	relative_urls: true,
+	plugins: "image",
+	<?php
+	if(!empty($photos))
+	{
+		echo 'image_list: [';
+		foreach($photos as $photo)
+		{
+			echo '{title: \'My image 1\', value: \''.site_url('photos/'.$photo->file_name.$photo->extension).'\'},';
+		}
+		echo ']';
+	}
+	?>
  });
 </script>

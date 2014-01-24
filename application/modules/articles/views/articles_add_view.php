@@ -109,7 +109,9 @@
 			?>
 		</div>
 		<div class="col-lg-3">
-			test
+			<?php
+			//echo Modules::run('photos/upload_photos_article');
+			?>
 		</div>
 	</div>
 
