@@ -2,7 +2,7 @@
 
 <h3>Upload photos</h3>
 <?php
-echo form_open_multipart('photos/upload_photos_article_submit','reole="form"');
+echo form_open_multipart('photos/upload_photos_article_submit','role="form"');
 echo '<div class="form-group">';
 echo form_error('file_names');
 echo form_label('File name(s):','file_names').'<br/>';
@@ -13,7 +13,8 @@ echo form_error('photos');
 echo form_label('Photos:','photos');
 echo '<input type="file" name="photos[]" multiple />';
 echo '</div>';
-echo form_hidden('id_article', $idarticle);
+echo form_hidden('id_parent', $id_parent);
+echo form_hidden('file_for',$file_for);
 echo '<div class="form-group">';
 echo form_submit('add', 'Add photos','class="btn btn-primary btn-sm btn-block"');
 echo '</div>';

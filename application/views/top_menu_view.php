@@ -17,6 +17,7 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Link</a></li>
       <li><a href="#">Link</a></li>
+	  <?php echo Modules::run('articles/display_article_menu');?>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
         <ul class="dropdown-menu">

@@ -9,7 +9,8 @@
 		<div class="col-lg-9">
 			<h1>Authors</h1>
 			<?php echo '<p>'.anchor('articles/authors/add_author','<i class="fa fa-user"></i> Add author','class="btn btn-primary btn-sm"');
-			//.'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"').'</p>';?>
+			//.'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"');
+			echo '</p>';?>
 			<table class="table table-condensed table-bordered table-striped table-hover">
 				<thead>
 					<tr>
@@ -32,10 +33,11 @@
 						}
 						echo '>';
 						echo '<td>'.$author->id.'</td>';
-						echo '<td>'.$author->first_name.' '.$author->last_name.'</td>';
-						echo '<td>'.$author->display_as.'</td>';
 						echo '<td>';
 						echo anchor('articles/authors/edit_author/'.$author->id,'<i class="fa fa-pencil fa-fw"></i>');
+						echo ' '.$author->first_name.' '.$author->last_name.'</td>';
+						echo '<td>'.$author->display_as.'</td>';
+						echo '<td>';
 						switch ($author->status) {
 							case '0':
 								$newstatus = '1';

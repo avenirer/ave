@@ -9,7 +9,8 @@
 		<div class="col-lg-9">
 			<h1>Categories</h1>
 			<?php echo '<p>'.anchor('articles/categories/add_category','<i class="fa fa-folder-open-o"></i> Add category','class="btn btn-primary btn-sm"');
-			//.'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"').'</p>';?>
+			//.'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"');
+			echo '</p>';?>
 			<table class="table table-condensed table-bordered table-striped table-hover">
 				<thead>
 					<tr>

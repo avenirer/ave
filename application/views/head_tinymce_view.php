@@ -21,7 +21,7 @@
 	<script type="text/javascript">
 tinymce.init({
     selector: "textarea.tinymce",
-	relative_urls: true,
+	relative_urls: false,
 	plugins: "image",
 	<?php
 	if(!empty($photos))

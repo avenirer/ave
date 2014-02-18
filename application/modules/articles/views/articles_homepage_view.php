@@ -8,14 +8,19 @@
 	<div class="row">
 		<div class="col-lg-9">
 			<h1>Articles</h1>
-			<?php echo '<p>'.anchor('articles/add_article','<i class="fa fa-file-text"></i> Add article','class="btn btn-primary btn-sm"');
-			//.'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"').'</p>';?>
+			<?php
+			echo '<p>'.anchor('articles/add_article','<i class="fa fa-file-text"></i> Add article','class="btn btn-primary btn-sm"').'&nbsp;';
+			echo anchor('articles/categories/add_category','<i class="fa fa-folder-open-o"></i> Add category','class="btn btn-primary btn-sm"').'&nbsp;';
+			echo anchor('articles/authors/add_author','<i class="fa fa-user"></i> Add author','class="btn btn-primary btn-sm"');
+			//.'&nbsp;'.anchor('users/get_users/','<i class="fa fa-group"></i> All users','class="btn btn-success btn-sm"').'&nbsp;'.anchor('users/get_users/nogroup','<i class="fa fa-group"></i> Users without group ('.$nogroup.')','class="btn btn-danger btn-sm"');
+			echo '</p>';?>
 			<table class="table table-condensed table-bordered table-striped table-hover">
 				<thead>
 					<tr>
 						<th scope="col">ID</th>
 						<th scope="col">Title</th>
 						<th scope="col">Author</th>
+						<th scope="col">Main photo</th>
 						<th scope="col">Created at</th>
 						<th scope="col">Status</th>
 					</tr>
@@ -46,6 +51,17 @@
 							$author = $article->author_first_name.' '.$article->author_last_name;
 						}
 						echo $author;
+						echo '</td>';
+						echo '<td>';
+						if(!empty($article->photo))
+						{
+							echo anchor('photos/'.$article->photo.$article->photo_extension,'<i class="fa fa-picture-o"></i>','target="_blank"').' ';
+							echo anchor('photos/delete_main_photo/articles/id/'.$article->article_id,'<i class="fa fa-trash-o"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
+						}
+						else
+						{
+							echo anchor('photos/upload_main_photo/articles/id/'.$article->article_id,'<i class="fa fa-camera"></i>');
+						}
 						echo '</td>';
 						echo '<td>';
 						echo $article->created_at;

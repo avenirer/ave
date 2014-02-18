@@ -16,7 +16,7 @@ class Articles_model extends MY_Model
 		$this->db->join('authors','articles.id_author = authors.id','left');
 		$this->db->join('categories','articles.id_category = categories.id','left');
 		$this->db->order_by('articles.id','desc');
-		$this->db->select('articles.id as article_id, articles.title as article_title, articles.created_by, articles.created_at, articles.edited_by, articles.edited_at, articles.status, authors.id as author_id, authors.first_name as author_first_name, authors.last_name as author_last_name, authors.display_as as author_display, categories.id as category_id, categories.category as category');
+		$this->db->select('articles.id as article_id, articles.photo, articles.photo_extension, articles.title as article_title, articles.created_by, articles.created_at, articles.edited_by, articles.edited_at, articles.status, authors.id as author_id, authors.first_name as author_first_name, authors.last_name as author_last_name, authors.display_as as author_display, categories.id as category_id, categories.category as category');
 		$q = $this->db->get('articles');
 		if($q->num_rows()>0)
 		{

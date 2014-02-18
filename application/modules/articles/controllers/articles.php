@@ -35,7 +35,7 @@ class Articles extends MX_Controller {
 		$idarticle = intval($idarticle);
 		if(!empty($idarticle))
 		{
-			$data['photos'] = Modules::run('photos/get_photos_article',$idarticle);
+			$data['photos'] = Modules::run('photos/get_photos',$idarticle,'article');
 			$this->load->model('articles_model');
 			$data['editarticle'] = $this->articles_model->get(array('id'=>$idarticle));
 			$data['categories'] = Modules::run('articles/categories/get_categories');
@@ -159,4 +159,9 @@ class Articles extends MX_Controller {
             redirect(site_url('articles'),'refresh');
         }
     }
+
+	public function display_article_menu()
+	{
+		$this->load->view('menu_general_view');
+	}
 }
